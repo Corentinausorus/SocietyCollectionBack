@@ -1,14 +1,18 @@
 package org.example.societycollectionback.entity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
-
+@Setter
+@Getter
 @Entity
 @Table(name = "boardgame")
 public class BoardGame {
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_boardgame")
     private Long id;
 
@@ -37,4 +41,7 @@ public class BoardGame {
             inverseJoinColumns = @JoinColumn(name = "id_category")
     )
     private Set<Category> categories = new HashSet<>();
+
+    @ManyToMany(mappedBy = "boardgames")
+    private Set<Collection> collections = new HashSet<>();
 }
